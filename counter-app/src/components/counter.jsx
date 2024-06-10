@@ -1,36 +1,41 @@
 import React, { useState } from "react";
 
-function Counter() {
-  const [count, setCount] = useState(1);
-  const [tags, setTags] = useState(["1", "2", "3"]);
+function Counter({ id, value, onClick, onDelete }) {
+  //const [count, setCount] = useState(0);
+  // const [tags, setTags] = useState(["1", "2", "3"]);
 
   const formatCount = () => {
-    return count === 0 ? "Zero" : count;
+    return value === 0 ? "Zero" : value;
   };
 
   const styleCount = () => {
-    return count === 0
+    return value === 0
       ? "badge text-bg-warning m-1"
       : "badge text-bg-primary m-1";
   };
 
   const handleClick = () => {
-    const newCount = count + 1;
-    setCount(newCount);
-    console.log("button click", count);
+    onClick({ id, value });
+  };
+
+  const handleDelete = () => {
+    onDelete({ id });
   };
 
   return (
     <div>
       <span className={styleCount()}>{formatCount()}</span>
       <button onClick={handleClick} className="btn btn-secondary btn-sm m-2">
-        Click Me
+        +
       </button>
-      <ul>
+      <button onClick={handleDelete} className="btn btn-danger btn-sm m-2">
+        -
+      </button>
+      {/* <ul>
         {tags.map((tag) => (
           <li key={tag}>{tag}</li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 }
